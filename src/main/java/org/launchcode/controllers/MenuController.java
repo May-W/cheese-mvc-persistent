@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,7 +22,6 @@ public class MenuController {
 
     @Autowired
     CheeseDao cheeseDao;
-
 
 
     @RequestMapping(value = "")
@@ -51,7 +47,7 @@ public class MenuController {
         }
         menuDao.save(menu);
 
-        return "redirect:view?id=" + Menu.getId();
+        return "redirect:view/" + Menu.getId();
     }
 
     @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
@@ -61,7 +57,7 @@ public class MenuController {
         model.addAttribute("cheeses", menu.getCheeses());
         model.addAttribute("menuId", menu.getId());
 
-        return "menu/view"
+        return "menu/view";
     }
 
     @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
@@ -83,6 +79,8 @@ public class MenuController {
         Cheese theCheese = cheeseDao.findOne(form.getCheeseId());
         Menu theMenu = menuDao.findOne(form.getMenuId());
         theMenu.addItem(theCheese);
-        menuDao.save(theMenu)
+        menuDao.save(theMenu);
+        return "/menu/view/" + form.getMenuId();
     }
 }
+    //TODO: Do we need to add remove handlers for menus? The walkthrough asks for remove links but doesn't ask us to make one
