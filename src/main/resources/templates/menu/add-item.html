@@ -14,7 +14,7 @@
                             th:text="${cheese.name}"
                             th:value="${cheese.id}"></option>
                 </select>
-                <span th:errors="cheeseId"></span>
+
             </div>
         <input type="hidden" name="menuId" th:value="*{menu.id}" />
         <input type="submit" value="Add Item" />

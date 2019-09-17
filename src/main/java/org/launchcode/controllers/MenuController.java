@@ -50,7 +50,7 @@ public class MenuController {
         return "redirect:view/" + menu.getId();
     }
 
-    @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/view/{menuId}", method = RequestMethod.GET)
     public String viewMenu(Model model, @PathVariable int menuId) {
         Menu menu = menuDao.findOne(menuId);
         model.addAttribute("title", menu.getName());
@@ -80,7 +80,7 @@ public class MenuController {
         Menu theMenu = menuDao.findOne(form.getMenuId());
         theMenu.addItem(theCheese);
         menuDao.save(theMenu);
-        return "/menu/view/" + form.getMenuId();
+        return "redirect:view/" + form.getMenuId();
     }
 }
     //TODO: Do we need to add remove handlers for menus? The walkthrough asks for remove links but doesn't ask us to make one
